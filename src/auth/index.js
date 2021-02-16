@@ -9,7 +9,7 @@ const basicAuthMiddleware = async (req, res, next) => {
     next(error);
   } else {
     const [username, password] = atob(
-      //extract email & pasworld from authorization header
+      //extract username & pasworld from authorization header
       req.headers.authorization.split(" ")[1] //with spilt ; first Basic; second is code
     ).split(":");
     // console.log(username);

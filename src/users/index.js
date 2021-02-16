@@ -24,4 +24,13 @@ usersRouter.post("/register", async (req, res, next) => {
   }
 });
 
+usersRouter.get("/me", basic, async (req, res, next) => {
+  try {
+    res.send(req.user);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = usersRouter;
