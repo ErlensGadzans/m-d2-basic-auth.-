@@ -33,4 +33,14 @@ usersRouter.get("/me", basic, async (req, res, next) => {
   }
 });
 
+usersRouter.delete("/me", basic, async (req, res, next) => {
+  try {
+    await req.user.deleOne();
+    res.status(204).send("User is deleted.");
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = usersRouter;
