@@ -43,4 +43,19 @@ usersRouter.delete("/me", basic, async (req, res, next) => {
   }
 });
 
+usersRouter.put("/me", basic, async (req, res, next) => {
+  try {
+    const updates = Object.keys(req.body);
+    // console.log(updates);
+    updates.forEach((update) => {
+      req.user[update] = req.body[update];
+    });
+    await req.user.save();
+    res.send(req.user);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = usersRouter;
