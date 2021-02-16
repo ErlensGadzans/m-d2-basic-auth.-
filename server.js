@@ -2,6 +2,8 @@ const express = require("express");
 const listEndpoints = require("express-list-endpoints");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const usersRouter = require("./src/users");
+const { join } = require("path");
 
 const {
   notFoundHandler,
@@ -16,6 +18,7 @@ server.use(cors());
 const port = process.env.PORT;
 
 server.use(express.json());
+server.use("/users", usersRouter);
 
 server.use(badRequestHandler);
 server.use(forbiddenHandler);
