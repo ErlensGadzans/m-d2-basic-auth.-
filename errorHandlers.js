@@ -1,30 +1,30 @@
 // ERROR HANDLERS
-const badRequestHandler = (err, req, res, next) => {
-  if (err.httpStatusCode === 400) {
-    res.status(400).send(err.message);
+const badRequestHandler = (error, req, res, next) => {
+  if (error.httpStatusCode === 400) {
+    res.status(400).send(error.message);
   }
-  next(err);
+  next(error);
 }; // 400
 
-const forbiddenHandler = (err, req, res, next) => {
-  if (err.httpStatusCode === 403) {
-    res.status(403).send(err.message || "Forbidden!");
+const forbiddenHandler = (error, req, res, next) => {
+  if (error.httpStatusCode === 403) {
+    res.status(403).send(error.message || "Forbidden!");
   }
-  next(err);
+  next(error);
 }; // 403
 
-const notFoundHandler = (err, req, res, next) => {
-  if (err.httpStatusCode === 404) {
-    res.status(404).send(err.message || "Resource not found!");
+const notFoundHandler = (error, req, res, next) => {
+  if (error.httpStatusCode === 404) {
+    res.status(404).send(error.message || "Resource not found!");
   }
-  next(err);
+  next(error);
 }; // 404
 
 // catch all
-const genericErrorHandler = (err, req, res, next) => {
+const genericErrorHandler = (error, req, res, next) => {
   if (!res.headersSent) {
     // checks if another error middleware already sent a response
-    res.status(err.httpStatusCode || 500).send(err.message);
+    res.status(error.httpStatusCode || 500).send(error.message);
   }
 };
 

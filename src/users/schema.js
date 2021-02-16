@@ -29,7 +29,22 @@ const UserSchema = new Schema({
   },
 });
 
+UserSchema.statics.findByCredentials = async function (
+  username,
+  palinPassword
+) {
+  const user = await this.findOne({ username }); //FIRST LOOKING FOR USERNAME IN LIST. "THIS" IS SEARCHING FROM SCHEMA
+
+  if (user) {
+    //IF THERE IS A USER, THEN ARE LOOKIN FOR PASWORD TO MATCH
+    const isMatch = await bcrypt.compare(palinPassword, user.password);
+    if (isMatch) return user;
+    else return null;
+  } else return null;
+};
+
 UserSchema.pre("save", async function (next) {
+  //pre saving users data
   const user = this;
 
   if (user.isModified("password")) {

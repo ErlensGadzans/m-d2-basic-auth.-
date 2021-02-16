@@ -1,9 +1,10 @@
 const express = require("express");
 const UserModel = require("./schema");
+const { adminOnly, basic } = require("../auth");
 
 const usersRouter = express.Router();
 
-usersRouter.get("/", async (req, res, next) => {
+usersRouter.get("/", basic, adminOnly, async (req, res, next) => {
   try {
     const users = await UserModel.find();
     res.send(users);
